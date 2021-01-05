@@ -1,0 +1,14 @@
+{
+    "name": "envsensor",
+    "version": "1.0",
+    "description": "Environment sensor with micro:bit",
+    "license": "MIT",
+    "dependencies": {
+    },
+    "files": [
+        "README.md",
+        "main.ts",
+        "_locales/zh/envsensor-strings.json"
+    ],
+    "public": true
+}
