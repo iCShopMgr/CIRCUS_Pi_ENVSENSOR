@@ -120,7 +120,7 @@ function PMS5003_getData(choose: number) : number{
 /**
  * environment sensor
  */
-//% weight=0 color=#0000ff icon="\uf72e" block="envsensor"
+//% weight=0 color=#0000ff icon="\uf185" block="envsensor"
 namespace envsensor {
 
 		//% blockId="init_sgp30" block="SGP30 initialization"
@@ -135,7 +135,7 @@ namespace envsensor {
         return sgp30_get(choose);
     }
 
-		//% blockId="get_pms5003" block="PMS5003 connect TX %choose1 RX %choose2 read data"
+		//% blockId="get_pms5003" block="PMS5003 connect RX %choose1 TX %choose2 read data"
     //% weight=2
     export function get_pms5003(choose1: soft_serial, choose2: soft_serial): void {
         return PMS5003(choose1, choose2);
