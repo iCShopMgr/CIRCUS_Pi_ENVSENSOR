@@ -123,27 +123,64 @@ function PMS5003_getData(choose: number) : number{
 //% weight=0 color=#0000ff icon="\uf185" block="envsensor"
 namespace envsensor {
 
-		//% blockId="init_sgp30" block="SGP30 initialization"
-		//% weight=4
+	//% blockId="init_sgp30" block="SGP30 initialization"
+	//% weight=7
     export function init_sgp30(): void {
         return sgp30_init();
     }
 
-		//% blockId="get_spg30" block="Get SGP30 %choose data"
-    //% weight=3
+	//% blockId="get_spg30" block="Get SGP30 %choose data"
+    //% weight=6
     export function get_spg30(choose: sgp30_data): number {
         return sgp30_get(choose);
     }
 
-		//% blockId="get_pms5003" block="PMS5003 connect RX %choose1 TX %choose2 read data"
-    //% weight=2
+	//% blockId="get_pms5003" block="PMS5003 connect RX %choose1 TX %choose2 read data"
+    //% weight=5
     export function get_pms5003(choose1: soft_serial, choose2: soft_serial): void {
         return PMS5003(choose1, choose2);
     }
 
-		//% blockId="data_pms5003" block="Get PMS5003 %choose data"
-    //% weight=1
+	//% blockId="data_pms5003" block="Get PMS5003 %choose data"
+    //% weight=4
     export function data_pms5003(choose: PMS5003_data): number {
         return PMS5003_getData(choose);
+    }
+	
+	//% blockId=connect_ESP8266 block="ESP8266 connect|RX %choose1|TX %choose2|Wi-Fi SSID: %ssid|Password: %key"
+    //% weight=3
+    export function connect_ESP8266(choose1: soft_serial, choose2: soft_serial, ssid: string, key: string): void {
+        serial.redirect(serial_list[choose1], serial_list[choose2] ,BaudRate.BaudRate115200);
+        serial.writeString("AT+RST" + "\u000D" + "\u000A")
+        basic.pause(1000)
+        serial.writeString("AT+CWMODE_CUR=1" + "\u000D" + "\u000A")
+        basic.pause(1000)
+        let printT = "AT+CWJAP_CUR=\"" + ssid + "\",\"" + key + "\""
+        serial.writeString(printT + "\u000D" + "\u000A")
+        basic.pause(1000)
+    }
+
+    //% expandableArgumentMode"toggle" inlineInputMode=inline
+    //% blockId=updata_ThingSpeak block="Upload ThingSpeak API Keys %apikey|Field1 %f1||Field2 %f2 Field3 %f3 Field4 %f4 Field5 %f5 Field6 %f6 Field7 %f7 Field8 %f8"
+    //% weight=2
+    export function updata_ThingSpeak(apikey: string, f1: number, f2?: number, f3?: number, f4?: number, f5?: number, f6?: number, f7?: number, f8?: number): void {
+        let datalist = [f1,f2,f3,f4,f5,f6,f7,f8];
+        let printT2 = "AT+CIPSTART=\"TCP\",\"api.thingspeak.com\",80";
+        serial.writeString(printT2 + "\u000D" + "\u000A");
+        basic.pause(1000);
+        let printT3 = "GET /update?key=" + apikey;
+        for (let i=0; i<datalist.length; i++) {
+            if (datalist[i] != null) {
+                printT3 += "&field"+(i+1)+"=" + datalist[i];
+            }
+            else {
+                break;
+            }
+        }
+        let printT4 = "AT+CIPSEND=" + (printT3.length + 2);
+        serial.writeString(printT4 + "\u000D" + "\u000A");
+        basic.pause(1000);
+        serial.writeString(printT3 + "\u000D" + "\u000A");
+        basic.pause(1000);
     }
 }
