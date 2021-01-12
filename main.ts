@@ -185,7 +185,7 @@ namespace envsensor {
     }
 	
 	//% expandableArgumentMode"toggle" inlineInputMode=inline
-    //% blockId=pushingbox_googlesheet block="Upload pushingbox DeviceID %apikey|Data1 %f1||Data2 %f2 Data3 %f3 Data4 %f4 Data5 %f5 Data6 %f6 Data7 %f7 Data8 %f8"
+    //% blockId=pushingbox_googlesheet block="Upload PushingBox DeviceID %apikey|Data1 %f1||Data2 %f2 Data3 %f3 Data4 %f4 Data5 %f5 Data6 %f6 Data7 %f7 Data8 %f8"
     //% weight=1
     export function pushingbox_googlesheet(devid: string, f1: number, f2?: number, f3?: number, f4?: number, f5?: number, f6?: number, f7?: number, f8?: number): void {
         let datalist = [f1,f2,f3,f4,f5,f6,f7,f8];
