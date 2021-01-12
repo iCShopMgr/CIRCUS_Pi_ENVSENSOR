@@ -183,4 +183,34 @@ namespace envsensor {
         serial.writeString(printT3 + "\u000D" + "\u000A");
         basic.pause(1000);
     }
+	
+	//% expandableArgumentMode"toggle" inlineInputMode=inline
+    //% blockId=pushingbox_googlesheet block="Upload pushingbox DeviceID %apikey|Data1 %f1||Data2 %f2 Data3 %f3 Data4 %f4 Data5 %f5 Data6 %f6 Data7 %f7 Data8 %f8"
+    //% weight=10
+    export function pushingbox_googlesheet(devid: string, f1: number, f2?: number, f3?: number, f4?: number, f5?: number, f6?: number, f7?: number, f8?: number): void {
+        let datalist = [f1,f2,f3,f4,f5,f6,f7,f8];
+        let printT2 = "AT+CIPSTART=\"TCP\",\"api.pushingbox.com\",80";
+        serial.writeString(printT2 + "\u000D" + "\u000A");
+        basic.pause(500);
+        let printT3 = "GET /pushingbox?devid=" + devid + "&data=";
+        let count_data = 0
+        for (let i=0; i<datalist.length; i++) {
+            if (datalist[i] != null) {
+                if (i != 0) {
+                    printT3 += ","
+                }
+                printT3 += datalist[i];
+                count_data = i+1;
+            }
+            else {
+                break;
+            }
+        }
+        printT3 += " HTTP/1.1\nHost: api.pushingbox.com\nUser-Agent: ESP8266HTTPClient\nAccept-Encoding: identity;q=1,chunked;q=0.1,*;q=0\nConnection: keep-alive\nContent-Length: 0"
+        serial.writeString("AT+CIPSEND=" + (printT3.length+count_data+8) + "\u000D" + "\u000A");
+        serial.writeString(printT3 + "\u000D" + "\u000A" + "\u000D" + "\u000A");
+        basic.pause(100);
+        serial.writeString(printT3 + "\u000D" + "\u000A" + "\u000D" + "\u000A");
+        basic.pause(100);
+    }
 }
