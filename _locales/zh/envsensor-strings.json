@@ -3,8 +3,5 @@
     "envsensor.init_sgp30|block": "SGP30 初始化",
     "envsensor.get_spg30|block": "取得 SGP30 %choose 資料",
     "envsensor.get_pms5003|block": "PMS5003 連接腳位 RX %choose1 TX %choose2 讀取資料",
-    "envsensor.data_pms5003|block": "取得 PMS5003 %choose 資料",
-    "envsensor.connect_ESP8266|block": "ESP8266 連接腳位|RX %choose1|TX %choose2|Wi-Fi 名稱: %ssid|密碼: %key",
-    "envsensor.updata_ThingSpeak|block": "上傳 ThingSpeak API Keys: %apikey|Field1 %f1||Field2 %f2 Field3 %f3 Field4 %f4 Field5 %f5 Field6 %f6 Field7 %f7 Field8 %f8",
-    "envsensor.pushingbox_googlesheet|block": "上傳 PushingBox DeviceID: %apikey|Data1 %f1||Data2 %f2 Data3 %f3 Data4 %f4 Data5 %f5 Data6 %f6 Data7 %f7 Data8 %f8"
+    "envsensor.data_pms5003|block": "取得 PMS5003 %choose 資料"
 }
