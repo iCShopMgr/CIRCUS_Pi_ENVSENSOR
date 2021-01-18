@@ -146,17 +146,4 @@ namespace envsensor {
     export function data_pms5003(choose: PMS5003_data): number {
         return PMS5003_getData(choose);
     }
-	
-	//% blockId=connect_ESP8266 block="ESP8266 connect|RX %choose1|TX %choose2|Wi-Fi SSID: %ssid|Password: %key"
-    //% weight=3
-    export function connect_ESP8266(choose1: soft_serial, choose2: soft_serial, ssid: string, key: string): void {
-        serial.redirect(serial_list[choose1], serial_list[choose2] ,BaudRate.BaudRate115200);
-        serial.writeString("AT+RST" + "\u000D" + "\u000A")
-        basic.pause(1000)
-        serial.writeString("AT+CWMODE_CUR=1" + "\u000D" + "\u000A")
-        basic.pause(1000)
-        let printT = "AT+CWJAP_CUR=\"" + ssid + "\",\"" + key + "\""
-        serial.writeString(printT + "\u000D" + "\u000A")
-        basic.pause(1000)
-    }
 }
