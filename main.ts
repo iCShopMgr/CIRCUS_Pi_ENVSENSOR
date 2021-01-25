@@ -82,27 +82,28 @@ let pmat100 = 0
 
 function PMS5003(choose1: number, choose2: number): void {
     serial.redirect(serial_list[choose1], serial_list[choose2] ,BaudRate.BaudRate9600);
-    basic.pause(100);
+    basic.pause(300);
     let check = -1;
     let Head;
-    while (check == -1) {
-        Head = serial.readBuffer(32)
+	
+	while (check == -1) {
+        Head = serial.readBuffer(20)
         let count = 0;
         while (true) {
             if (Head.getNumber(NumberFormat.Int8LE, count) == 0x42 && Head.getNumber(NumberFormat.Int8LE, count+1) == 0x4d) {
                 check = count;
             }
-            else if (count > 16) {
+            else if (count > 3) {
                 break;
             }
             count += 1
         }
     }
+	
     pmat10 = 256*Head.getNumber(NumberFormat.Int8LE, check+10) + Head.getNumber(NumberFormat.Int8LE, check+11);
     pmat25 = 256*Head.getNumber(NumberFormat.Int8LE, check+12) + Head.getNumber(NumberFormat.Int8LE, check+13);
     pmat100 = 256*Head.getNumber(NumberFormat.Int8LE, check+14) + Head.getNumber(NumberFormat.Int8LE, check+15);
-    serial.redirectToUSB()
-    basic.pause(10);
+
 }
 
 function PMS5003_getData(choose: number) : number{
