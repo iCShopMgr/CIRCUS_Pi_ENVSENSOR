@@ -7,21 +7,21 @@ enum sgp30_data {
 
 enum soft_serial {
     //% block="P0"
-    serial_0 = 0,
+    env_serial_0 = 0,
     //% block="P1"
-    serial_1 = 1,
+    env_serial_1 = 1,
     //% block="P2"
-    serial_2 = 2,
+    env_serial_2 = 2,
     //% block="P8"
-    serial_8 = 3,
+    env_serial_8 = 3,
     //% block="P13"
-    serial_13 = 4,
+    env_serial_13 = 4,
     //% block="P14"
-    serial_14 = 5,
+    env_serial_14 = 5,
     //% block="P15"
-    serial_15 = 6,
+    env_serial_15 = 6,
     //% block="P16"
-    serial_16 = 7
+    env_serial_16 = 7
 }
 
 enum PMS5003_data {
